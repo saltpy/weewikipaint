@@ -1,4 +1,4 @@
-"use strict"
+"use strict";
 
 var jshint = require("jshint").JSHINT;
 var fs = require("fs");
