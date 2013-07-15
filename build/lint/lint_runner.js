@@ -1,7 +1,7 @@
 "use strict";
 
-var jshint = require("jshint").JSHINT;
 var fs = require("fs");
+var jshint = require("jshint").JSHINT;
 
 exports.validateSource = function(sourceCode, options, globals, description) {
     description = description ? description + " " : "";
@@ -10,10 +10,15 @@ exports.validateSource = function(sourceCode, options, globals, description) {
         console.log(description + "ok");
     } else {
         console.log(description + "failed");
-        jshint.errors.forEach(function(error) {
-            console.log(error.line + ": " + error.evidence.trace());
+        for (var i = 0; i < jshint.errors.length; i++) {
+            var error = jshint.errors[i];
+            if (!error) continue;
+            
+            if (error.evidence) {
+                console.log(error.line + ": " + error.evidence.trim());
+            }
             console.log("   " + error.reason);
-        });
+        }
     }
     return pass;
 };

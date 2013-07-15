@@ -13,26 +13,28 @@
         files.include("**/*.js");
         files.exclude("node_modules");
 
-        lint.validateFileList(files.toArray(), nodeLintOptions(), {});
+        var options = nodeLintOptions();
+
+        lint.validateFileList(files.toArray(), options, {});
     });
 
     function nodeLintOptions() {
-            return {
-                bitwise:true,
-                curly:false,
-                eqeqeq:true,
-                forin:true,
-                immed:true,
-                latedef:true,
-                newcap:true,
-                noarg:true,
-                noempty:true,
-                nonew:true,
-                regexp:true,
-                undef:true,
-                strict:true,
-                trailing:true,
-                node:true 
+        return {
+            bitwise:true,
+            curly:false,
+            eqeqeq:true,
+            forin:true,
+            immed:true,
+            latedef:true,
+            newcap:true,
+            noarg:true,
+            noempty:true,
+            nonew:true,
+            regexp:true,
+            undef:true,
+            strict:true,
+            trailing:true,
+            node:true
         };
     }
-})();
+}());
