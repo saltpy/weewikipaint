@@ -14,7 +14,7 @@ User Stories:
 - marketing copy
 
 Engineering Task:
-- CI
+* CI
 - server side testing
 - client side testing
 
