@@ -1,0 +1,22 @@
+{
+    "name": "weewikipaint",
+    "description": "TDD in JavaScript by James Shore",
+    "version": "0.0.1",
+    "author": "James Salt <saltpy@gmail.com>",
+    "scripts": {
+        "test": "jake test"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/saltpy/weewikipaint.git"
+    },
+    "dependencies": {
+    },
+    "devDependencies": {
+        "jake": "0.5.x",
+        "jshint": "2.1.x"
+    },
+    "engines": {
+        "node": "*"
+    }
+}
