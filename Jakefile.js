@@ -31,7 +31,7 @@
         var child;
         if (! passed) {
             fail("Integration failed. Rolling back to last known good commit");
-            child = exec("git reset --hard " + known_good_id);
+            child = exec("git reset --hard " + known_good_id + " && git push");
         } else {
             child = exec("git rev-parse HEAD > .last_known_good && git add .last_known_good && git commit -m 'CI Passed - bump last known good'");
 
