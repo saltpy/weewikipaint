@@ -3,6 +3,12 @@
 (function() {
     "use strict";
 
+    var fs = require("fs");
+    var sys = require("sys");
+    var exec = require("child_process").exec;
+
+    var passed = true;
+
     desc("Build and Test");
     task("default", ["lint"]);
 
@@ -16,19 +22,19 @@
 
         var options = nodeLintOptions();
 
-        lint.validateFileList(files.toArray(), options, {} || fail("Linting failed."));
+        passed = lint.validateFileList(files.toArray(), options, {});
     });
 
     desc("CI");
     task("CI", ["default"], function() {
-        console.log("1. Make sure 'git status' is clean.");
-        console.log("2. Run 'git pull'.");
-        console.log("3. Run 'npm install' and make sure its clean.");
-        console.log("4. Run 'npm test' and make sure its clean.");
-        console.log("    a. If 4 fails start over and debug.");
-        console.log("5. Run 'git checkout ci'.");
-        console.log("6. Run 'git merge master --no-ff --log'.");
-        console.log("7. Run 'git checkout master'");
+        var known_good_id = fs.readFileSync(".last_known_good", "utf8");
+        if (! passed) {
+            fail("Integration failed. Rolling back to last known good commit");
+            var child = exec("git reset --hard " + known_good_id);
+        } else {
+            var child = exec("git rev-parse HEAD > .last_known_good");
+            console.log("CI passed.");
+        }
     });
 
     function nodeLintOptions() {
