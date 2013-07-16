@@ -10,7 +10,7 @@
     var passed = true;
 
     desc("Build and Test");
-    task("default", ["lint"])
+    task("default", ["lint"]);
 
     desc("Lint everything");
     task("lint", [], function() {
