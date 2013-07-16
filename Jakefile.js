@@ -25,6 +25,7 @@
         console.log("2. Run 'git pull'.");
         console.log("3. Run 'npm install' and make sure its clean.");
         console.log("4. Run 'npm test' and make sure its clean.");
+        console.log("    a. If 4 fails start over and debug.");
         console.log("5. Run 'git checkout ci'.");
         console.log("6. Run 'git merge master --no-ff --log'.");
         console.log("7. Run 'git checkout master'");
