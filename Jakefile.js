@@ -16,7 +16,7 @@
 
         var options = nodeLintOptions();
 
-        lint.validateFileList(files.toArray(), options, {});
+        lint.validateFileList(files.toArray(), options, {} || fail("Linting failed."));
     });
 
     desc("CI");
