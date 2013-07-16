@@ -3,6 +3,7 @@
 (function() {
     "use strict";
 
+    desc("Build and Test");
     task("default", ["lint"]);
 
     desc("Lint everything");
@@ -16,6 +17,17 @@
         var options = nodeLintOptions();
 
         lint.validateFileList(files.toArray(), options, {});
+    });
+
+    desc("CI");
+    task("CI", ["default"], function() {
+        console.log("1. Make sure 'git status' is clean.");
+        console.log("2. Run 'git pull'.");
+        console.log("3. Run 'npm install' and make sure its clean.");
+        console.log("4. Run 'npm test' and make sure its clean.");
+        console.log("5. Run 'git checkout ci'.");
+        console.log("6. Run 'git merge master --no-ff --log'.");
+        console.log("7. Run 'git checkout master'");
     });
 
     function nodeLintOptions() {
