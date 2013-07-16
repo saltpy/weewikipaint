@@ -4,7 +4,7 @@
     "use strict";
 
     desc("Build and Test");
-    task("default", ["lint"]);
+    task("default", ["lint", "test"]);
 
     desc("Lint everything");
     task("lint", [], function() {
@@ -18,6 +18,12 @@
 
         var passed = lint.validateFileList(files.toArray(), options, {});
         if (! passed) fail("Linting failed.");
+    });
+
+    desc("Run All Tests");
+    task("test", [], function() {
+        var reporter = require("nodeunit").reporters["default"];
+        reporter.run(['test']);
     });
 
     function nodeLintOptions() {

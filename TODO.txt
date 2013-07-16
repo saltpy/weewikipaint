@@ -18,3 +18,6 @@ Engineering Task:
 - client side testing
 
 Current Task:
+- Choose framework for testing
+- Abstract test framework
+- Swap out framework to make sure abstraction works
