@@ -3,12 +3,6 @@
 (function() {
     "use strict";
 
-    var fs = require("fs");
-    var sys = require("sys");
-    var exec = require("child_process").exec;
-
-    var passed = true;
-
     desc("Build and Test");
     task("default", ["lint"]);
 
@@ -22,33 +16,8 @@
 
         var options = nodeLintOptions();
 
-        passed = lint.validateFileList(files.toArray(), options, {});
-    });
-
-    desc("CI");
-    task("CI", ["default"], function() {
-        var known_good_id = fs.readFileSync(".last_known_good", "utf8");
-        var child;
-        if (! passed) {
-            child = exec("git reset --hard " + known_good_id + " && git push", function (error, stdout, stderr) {
-                if (error !== null) {
-                    console.log(error);
-                    console.log("Failed to reset repo");
-                }
-            });
-            fail("Integration failed. Rolling back to last known good commit");
-        } else {
-            child = exec("git rev-parse HEAD > .last_known_good && git add .last_known_good && git commit -m 'CI Passed - bump last known good' && git push", function(error, stdout, stderr) {
-                if (error !== null) {
-                    console.log(error);
-                    console.log("Failed to push new known good");
-                    console.log("STDOUT: " + stdout);
-                    console.log("STDERR: " + stderr);
-                    fail("Integration failed due to error pushing new known_good.");
-                }
-            });
-            console.log("CI passed.");
-        }
+        var passed = lint.validateFileList(files.toArray(), options, {});
+        if (! passed) fail("Linting failed.");
     });
 
     function nodeLintOptions() {

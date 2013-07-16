@@ -4,7 +4,7 @@
     "version": "0.0.1",
     "author": "James Salt <saltpy@gmail.com>",
     "scripts": {
-        "test": "jake CI --trace"
+        "test": "jake"
     },
     "repository": {
         "type": "git",
