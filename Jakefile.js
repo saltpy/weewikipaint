@@ -23,7 +23,7 @@
     desc("Run All Tests");
     task("test", [], function() {
         var reporter = require("nodeunit").reporters["default"];
-        reporter.run(['test']);
+        reporter.run(['src/server/_server_test.js']);
     });
 
     function nodeLintOptions() {
