@@ -7,7 +7,7 @@
     var sys = require("sys");
     var exec = require("child_process").exec;
 
-    var passed = true
+    var passed = true;
 
     desc("Build and Test");
     task("default", ["lint"]);
