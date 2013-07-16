@@ -14,8 +14,7 @@ User Stories:
 - marketing copy
 
 Engineering Task:
-* server side testing
-- client side testing
+- Super simple HTTP Server
 
 Current Task:
 
