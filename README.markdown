@@ -1,8 +1,10 @@
 weewikipaint
+============
 
 [![Build Status](https://travis-ci.org/saltpy/weewikipaint.png)](https://travis-ci.org/saltpy/weewikipaint)
 
+Build Instructions
+------------------
 
-To build:
-- Assumes presence of node.js
-- Run jake.sh
+- Assumes presence of node.js v0.11.x
+- Run jake.sh for the rest
