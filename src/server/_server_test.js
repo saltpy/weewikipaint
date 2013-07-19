@@ -12,14 +12,6 @@ exports.tearDown = function(done) {
 //TODO: handle stop() called before start()
 //TODO: stop() callback
 
-exports.testHttpServerRespondsToGet = function(test) {
-    server.start();
-    http.get("http://localhost:8080", function(response) {
-        response.on("data", function() {});
-        test.done();
-    });
-};
-
 exports.testHttpServerRespondsWithHelloWorld = function(test) {
     server.start(); //TODO: deduplicate
     http.get("http://localhost:8080", function(response) {
