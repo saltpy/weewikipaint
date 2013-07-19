@@ -2,6 +2,7 @@
 
 var server = require("./server.js");
 var http = require("http");
+var fs = require("fs");
 
 exports.testHttpServerRespondsWithHelloWorld = function(test) {
     server.start(8080);
@@ -40,4 +41,17 @@ exports.testServerRunsCallbackWhenStopCalled = function(test) {
     server.stop(function() {
         test.done();
     });
+};
+
+exports.testServerServesAFile = function(test) {
+    var testDir = "generated/test";
+    var testFile = testDir + "/test.html";
+    
+    try {
+        fs.writeFileSync(testFile, "Hello World");
+        test.done();
+    } finally {
+        fs.unlinkSync(testFile);
+        test.ok(!fs.existsSync(testFile));
+    }
 };
