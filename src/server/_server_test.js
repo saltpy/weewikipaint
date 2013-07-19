@@ -3,21 +3,8 @@
 var server = require("./server.js");
 var http = require("http");
 
-exports.setUp = function(done) {
-    server.start(8080);
-    done();
-};
-
-exports.tearDown = function(done) {
-    server.stop(function() {
-        done();
-    });
-};
-
-//TODO: handle stop() called before start()
-//TODO: stop() callback
-
 exports.testHttpServerRespondsWithHelloWorld = function(test) {
+    server.start(8080);
     http.get("http://localhost:8080", function(response) {
         var recievedData = false;
         response.setEncoding("utf8");
@@ -28,14 +15,29 @@ exports.testHttpServerRespondsWithHelloWorld = function(test) {
         });
         response.on("end", function() {
             test.ok(recievedData, "should have recieved response data");
+            server.stop();
             test.done();
         });
     });
 };
 
-exports.testServerRunsCallbackWhenStopCompletes = function(test) {
+exports.testServerThrowsExceptionWhenCalledWithNoPortNumber = function(test) {
+    test.throws(function() {
+        server.start();
+    });
+    test.done();
+};
+
+exports.testStopCalledBeforeStartThrowsException = function(test) {
+    test.throws(function() {
+        server.stop();
+    });
+    test.done();
+};
+
+exports.testServerRunsCallbackWhenStopCalled = function(test) {
+    server.start(8080);
     server.stop(function() {
         test.done();
     });
-    server.start(); //TODO: kludge this so tearDown runs
 };
