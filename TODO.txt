@@ -14,9 +14,10 @@ User Stories:
 - marketing copy
 
 Engineering Task:
-- Super simple HTTP Server
+* Super simple HTTP Server
 
 Current Task:
 
 Future Ideas:
+- Create 'fail fast' assertion code
 - Abstract test framework?
