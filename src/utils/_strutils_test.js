@@ -8,6 +8,6 @@ exports.testStartsWithCorrectCase = function(test) {
 };
 
 exports.testStartsWithIncorrectCase = function(test) {
-    test.equal(false, strutils.startsWith("marylin monroe", "mazza"));
+    test.ok(! strutils.startsWith("marylin monroe", "mazza"));
     test.done();
 };
