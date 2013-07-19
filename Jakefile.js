@@ -7,7 +7,7 @@
     task("default", ["lint", "test"]);
 
     desc("Lint everything");
-    task("lint", [], function() {
+    task("lint", ["node"], function() {
         var lint = require("./build/lint/lint_runner.js");
 
         var files = new jake.FileList();
@@ -21,13 +21,27 @@
     });
 
     desc("Run All Tests");
-    task("test", [], function() {
+    task("test", ["node"], function() {
         var reporter = require("nodeunit").reporters["default"];
         reporter.run(['src/server/_server_test.js'], null, function(failures) {
             if (failures) fail("Tests failed.");
             complete();
         });
     }, {async: true});
+
+//    desc("Check node version is compatible");
+    task("node", [], function() {
+        var stdout = "";
+        var ex = jake.createExec(["node --version"], {printStdout:true, printStderr:true});
+        ex.addListener("stdout", function(chunk) {
+            stdout += chunk;
+        });
+        ex.addListener("cmdEnd", function() {
+            if (stdout.trim() !== "v0.11.1-pre") fail("Node version " + stdout.trim() + " incompatable");
+            complete();
+        });
+        ex.run();
+    }, {async:true});
 
     function nodeLintOptions() {
         return {
