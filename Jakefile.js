@@ -1,10 +1,21 @@
-/*global desc, task, jake, fail, complete */
+/*global desc, task, jake, fail, complete, directory */
 
 (function() {
     "use strict";
 
+    var NODE_VERSION = "v0.11.";
+    var GENERATED_DIR = "generated";
+    var TEMP_TESTFILE_DIR = GENERATED_DIR + "/test";
+
+    directory(TEMP_TESTFILE_DIR);
+
+    desc("Delete generated files");
+    task("clean", [], function() {
+        jake.rmRf("generated");
+    });
+
     desc("Build and Test");
-    task("default", ["lint", "test"]);
+    task("default", ["clean", "lint", "test"]);
 
     desc("Lint everything");
     task("lint", ["node"], function() {
@@ -21,7 +32,7 @@
     });
 
     desc("Run All Tests");
-    task("test", ["node"], function() {
+    task("test", ["node", TEMP_TESTFILE_DIR], function() {
         var reporter = require("nodeunit").reporters["default"];
         reporter.run(['src/server/_server_test.js',
                       'src/utils/_strutils_test.js'], null, function(failures) {
@@ -36,7 +47,7 @@
         var strutils = require('./src/utils/strutils.js');
         syscmd("node --version").data(function(err, stdout, stderr) {
             if (err) fail("No node.js found.");
-            if (! strutils.startsWith(stdout.toString().trim(), "v0.11.")) {
+            if (! strutils.startsWith(stdout.toString().trim(), NODE_VERSION)) {
                 fail("Incompatible node.js.");
             }
             complete();
