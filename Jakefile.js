@@ -23,7 +23,8 @@
     desc("Run All Tests");
     task("test", ["node"], function() {
         var reporter = require("nodeunit").reporters["default"];
-        reporter.run(['src/server/_server_test.js'], null, function(failures) {
+        reporter.run(['src/server/_server_test.js',
+                      'src/utils/_strutils_test.js'], null, function(failures) {
             if (failures) fail("Tests failed.");
             complete();
         });
@@ -32,10 +33,12 @@
 //    desc("Check node version is compatible");
     task("node", [], function() {
         var syscmd = require('procstreams');
+        var strutils = require('./src/utils/strutils.js');
         syscmd("node --version").data(function(err, stdout, stderr) {
             if (err) fail("No node.js found.");
-            var vers = stdout.toString().trim();
-            if (vers !== 'v0.11.1-pre') fail("Incompatible node.js.");
+            if (! strutils.startsWith(stdout.toString().trim(), "v0.11.")) {
+                fail("Incompatible node.js.");
+            }
             complete();
         });
     }, {async:true});
