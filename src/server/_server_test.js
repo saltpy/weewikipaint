@@ -42,18 +42,3 @@ exports.testServerRunsCallbackWhenStopCalled = function(test) {
         test.done();
     });
 };
-
-exports.testServerServesAFile = function(test) {
-    var testDir = "generated/test";
-    var testFile = testDir + "/test.html";
-    
-    try {
-        fs.writeFileSync(testFile, "Hello World");
-        test.ok(false, "failed!");
-        test.done();
-    } finally {
-        fs.unlinkSync(testFile);
-        test.ok(!fs.existsSync(testFile));
-        test.done();
-    }
-};
