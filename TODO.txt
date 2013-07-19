@@ -17,7 +17,6 @@ Engineering Task:
 * Super simple HTTP Server
 
 Current Task:
-* Lets have Jake enforce node version
 
 Future Ideas:
 - Create 'fail fast' assertion code
