@@ -3,6 +3,11 @@
 var server = require("./server.js");
 var http = require("http");
 
+exports.setUp = function(done) {
+    server.start(8080);
+    done();
+};
+
 exports.tearDown = function(done) {
     server.stop(function() {
         done();
@@ -13,7 +18,6 @@ exports.tearDown = function(done) {
 //TODO: stop() callback
 
 exports.testHttpServerRespondsWithHelloWorld = function(test) {
-    server.start(8080); //TODO: deduplicate
     http.get("http://localhost:8080", function(response) {
         var recievedData = false;
         response.setEncoding("utf8");
@@ -27,4 +31,11 @@ exports.testHttpServerRespondsWithHelloWorld = function(test) {
             test.done();
         });
     });
+};
+
+exports.testServerRunsCallbackWhenStopCompletes = function(test) {
+    server.stop(function() {
+        test.done();
+    });
+    server.start(); //TODO: kludge this so tearDown runs
 };
