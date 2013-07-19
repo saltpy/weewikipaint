@@ -9,10 +9,30 @@ exports.tearDown = function(done) {
     });
 };
 
+//TODO: handle stop() called before start()
+//TODO: stop() callback
+
 exports.testHttpServerRespondsToGet = function(test) {
     server.start();
     http.get("http://localhost:8080", function(response) {
         response.on("data", function() {});
         test.done();
+    });
+};
+
+exports.testHttpServerRespondsWithHelloWorld = function(test) {
+    server.start(); //TODO: deduplicate
+    http.get("http://localhost:8080", function(response) {
+        var recievedData = false;
+        response.setEncoding("utf8");
+        test.equals(200, response.statusCode, "status code");
+        response.on("data", function(chunk) {
+            recievedData = true;
+            test.equals("Hello World", chunk, "hello world");
+        });
+        response.on("end", function() {
+            test.ok(recievedData, "should have recieved response data");
+            test.done();
+        });
     });
 };
