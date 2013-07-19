@@ -13,7 +13,7 @@ exports.tearDown = function(done) {
 //TODO: stop() callback
 
 exports.testHttpServerRespondsWithHelloWorld = function(test) {
-    server.start(); //TODO: deduplicate
+    server.start(8080); //TODO: deduplicate
     http.get("http://localhost:8080", function(response) {
         var recievedData = false;
         response.setEncoding("utf8");
