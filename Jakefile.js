@@ -31,16 +31,13 @@
 
 //    desc("Check node version is compatible");
     task("node", [], function() {
-        var stdout = "";
-        var ex = jake.createExec(["node --version"], {printStdout:true, printStderr:true});
-        ex.addListener("stdout", function(chunk) {
-            stdout += chunk;
-        });
-        ex.addListener("cmdEnd", function() {
-            if (stdout.trim() !== "v0.11.1-pre") fail("Node version " + stdout.trim() + " incompatable");
+        var syscmd = require('procstreams');
+        syscmd("node --version").data(function(err, stdout, stderr) {
+            if (err) fail("No node.js found.");
+            var vers = stdout.toString().trim();
+            if (vers !== 'v0.11.1-pre') fail("Incompatible node.js.");
             complete();
         });
-        ex.run();
     }, {async:true});
 
     function nodeLintOptions() {
