@@ -36,6 +36,7 @@
         var testFiles = new jake.FileList();
         testFiles.include("**/_*_test.js");
         testFiles.exclude("node_modules");
+        testFiles.exclude("src/client/_*_test.js");
 
         var reporter = require("nodeunit").reporters["default"];
         reporter.run(testFiles.toArray(), null, function(failures) {
