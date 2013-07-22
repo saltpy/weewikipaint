@@ -1,11 +1,11 @@
 "use strict";
 
-var server = require("./server.js");
+var app = require("./server.js");
 var http = require("http");
 var fs = require("fs");
 
 exports.testHttpServerRespondsWithHelloWorld = function(test) {
-    server.start(8080);
+    app.start(8080);
     http.get("http://localhost:8080", function(response) {
         var recievedData = false;
         response.setEncoding("utf8");
@@ -16,7 +16,7 @@ exports.testHttpServerRespondsWithHelloWorld = function(test) {
         });
         response.on("end", function() {
             test.ok(recievedData, "should have recieved response data");
-            server.stop();
+            app.stop();
             test.done();
         });
     });
@@ -24,21 +24,21 @@ exports.testHttpServerRespondsWithHelloWorld = function(test) {
 
 exports.testServerThrowsExceptionWhenCalledWithNoPortNumber = function(test) {
     test.throws(function() {
-        server.start();
+        app.start();
     });
     test.done();
 };
 
 exports.testStopCalledBeforeStartThrowsException = function(test) {
     test.throws(function() {
-        server.stop();
+        app.stop();
     });
     test.done();
 };
 
 exports.testServerRunsCallbackWhenStopCalled = function(test) {
-    server.start(8080);
-    server.stop(function() {
+    app.start(8080);
+    app.stop(function() {
         test.done();
     });
 };
