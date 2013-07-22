@@ -37,10 +37,3 @@ exports.test_servesHomePageFromFile = function(test) {
         });
     });
 };
-
-exports.testServerThrowsExceptionWhenCalledWithNoPortNumber = function(test) {
-    test.throws(function() {
-        app.start();
-    });
-    test.done();
-};
