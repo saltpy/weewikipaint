@@ -1,19 +1,22 @@
 WeeWikiPaint
 
 Minimum Marketable Feature:
-- single user painting on homepage
+* single user painting on homepage
 - collaborative painting page
 - wikify the pages
 - more complex painting?
 - more collaborative features?
 
 User Stories:
+* Create drawing area
+- Draw a line
 
 Engineering Task:
+* set up client side testing
+- test drawing tool (Raphael?)
+- Integrate into HTML page
 
 Current Task:
 
 Future Ideas:
 - Lets have a nice looking layout etc
-- Create 'fail fast' assertion code
-- Abstract test framework?
