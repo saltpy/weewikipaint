@@ -44,7 +44,3 @@ exports.testServerThrowsExceptionWhenCalledWithNoPortNumber = function(test) {
     });
     test.done();
 };
-
-exports.testServerRunsCallbackWhenStopCalled = function(test) {
-    test.done();
-};
