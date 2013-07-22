@@ -12,7 +12,6 @@ User Stories:
 * Publish to the internets
 
 Engineering Task:
-* Smoketest actual live config etc
 
 Current Task:
 
