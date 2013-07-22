@@ -44,10 +44,9 @@
 //    desc("Check node version is compatible");
     task("node", [], function() {
         var syscmd = require('procstreams');
-        var strutils = require('./src/utils/strutils.js');
         syscmd("node --version").data(function(err, stdout, stderr) {
             if (err) fail("No node.js found.");
-            if (! strutils.startsWith(stdout.toString().trim(), NODE_VERSION)) {
+            if (stdout.toString().trim().indexOf(NODE_VERSION) !== 0) {
                 fail("Incompatible node.js.");
             }
             complete();
