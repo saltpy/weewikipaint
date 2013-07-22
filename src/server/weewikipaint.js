@@ -1,5 +1,3 @@
 "use strict";
 
-var server = require("./server.js");
-
-server.start();
+require("./server.js").start();
