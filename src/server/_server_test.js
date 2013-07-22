@@ -1,5 +1,6 @@
 "use strict";
 
+var assert = require("nodeunit").assert;
 var app = require("./server.js");
 var http = require("http");
 var syscmd = require("procstreams");
@@ -17,39 +18,32 @@ exports.tearDown = function(callback) {
     });
 };
 
-exports.test_servesHomePageFromFile = function(test) {
-    var expected = "Test homepage file";
-    fs.writeFileSync(TEST_STATIC_DIR + '/index.html', expected);
-    
-    var request = http.get('http://localhost:8080/index.html');
+var httpGetAndAssert = function(test, expectedBodyText, urlToGet, expectedResponseCode, setupFunc) {
+    if (typeof(setupFunc) !== "undefined") setupFunc();
+    var request = http.get(urlToGet);
     request.on("response", function(response) {
-        var actual = "";
-        test.equals(200, response.statusCode);
+        var actualBodyText = "";
+        test.equals(expectedResponseCode, response.statusCode);
 
         response.on("data", function(chunk) {
-            actual += chunk;
+            actualBodyText += chunk;
         });
 
         response.on("end", function() {
-            test.equals(expected, actual);
+            test.equals(expectedBodyText, actualBodyText);
             test.done();
         });
     });
 };
 
+exports.test_servesHomePageFromFile = function(test) {
+    var expected = "Test homepage file";
+    httpGetAndAssert(test, expected, "http://localhost:8080", 200, function() {
+        fs.writeFileSync(TEST_STATIC_DIR + '/index.html', expected);
+    });
+};
+
 exports.test_serves404WhenFileDoesNotExist = function(test) {
     var expected = "Sorry cant find that!";
-    var request = http.get("http://localhost:8080");
-    request.on("response", function(response) {
-        var actual = "";
-        test.equals(404, response.statusCode);
-
-        response.on("data", function(chunk) {
-            actual += chunk;
-        });
-
-        response.on("end", function() {
-            test.done();
-        });
-    });
+    httpGetAndAssert(test, expected, "http://localhost:8080", 404);
 };
