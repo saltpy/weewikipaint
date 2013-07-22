@@ -1,20 +1,19 @@
 WeeWikiPaint
 
 Minimum Marketable Feature:
-* marketing home page
+- single user painting on homepage
 - collaborative painting page
 - wikify the pages
 - more complex painting?
 - more collaborative features?
 
 User Stories:
-- Marketing copy
-* Publish to the internets
 
 Engineering Task:
 
 Current Task:
 
 Future Ideas:
+- Lets have a nice looking layout etc
 - Create 'fail fast' assertion code
 - Abstract test framework?
