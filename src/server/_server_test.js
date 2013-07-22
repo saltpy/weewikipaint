@@ -1,6 +1,5 @@
 "use strict";
 
-var assert = require("nodeunit").assert;
 var app = require("./server.js");
 var http = require("http");
 var syscmd = require("procstreams");
