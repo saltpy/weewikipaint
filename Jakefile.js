@@ -5,7 +5,7 @@
 
     var NODE_VERSION = "v0.11.";
     var GENERATED_DIR = "generated";
-    var TEMP_TESTFILE_DIR = GENERATED_DIR + "/test";
+    var TEMP_TESTFILE_DIR = GENERATED_DIR + "/static";
 
     directory(TEMP_TESTFILE_DIR);
 
