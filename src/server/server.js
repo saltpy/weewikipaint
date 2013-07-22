@@ -6,8 +6,9 @@ var server;
 var app;
 
 exports.start = function(port, dirname, ready) {
-    if(!port) throw "Require port number";
-    if(!dirname) throw "Require a directory to act as root";
+    port = (typeof port === "undefined") ? 8080 : port;
+    dirname = (typeof dirname === "undefined") ? "express-root" : dirname;
+    ready = (typeof ready === "undefined") ? function(){} : ready;
 
     app = express();
     app.use(express.static(dirname));
@@ -17,12 +18,11 @@ exports.start = function(port, dirname, ready) {
     });
 
     server = app.listen(port, function() {
-        console.log("Server running on port %d for %s root", port, dirname);
         ready();
     });
 };
 
 exports.stop = function(callback) {
-    console.log("Halting server and application");
+    callback = (typeof callback === "undefined") ? function(){} : callback;
     server.close(callback);
 };
