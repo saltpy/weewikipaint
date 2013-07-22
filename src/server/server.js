@@ -13,10 +13,6 @@ exports.start = function(port, dirname, ready) {
     app = express();
     app.use(express.static(dirname));
 
-    app.get("/", function(req, res) {
-        res.end("Hello World");
-    });
-
     server = app.listen(port, function() {
         ready();
     });
