@@ -8,7 +8,7 @@ var app;
 exports.start = function(port, dirname, ready) {
     port = (typeof port === "undefined") ? 8080 : port;
     dirname = (typeof dirname === "undefined") ? "express-root" : dirname;
-    ready = (typeof ready === "undefined") ? function(){} : ready;
+    ready = (typeof ready === "undefined") ? function(){console.log("Server started");} : ready;
 
     app = express();
     app.use(express.static(dirname));
