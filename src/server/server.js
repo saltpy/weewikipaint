@@ -13,6 +13,10 @@ exports.start = function(port, dirname, ready) {
     app = express();
     app.use(express.static(dirname));
 
+    app.use(function(req, res, next) {
+        res.send(404, "Sorry cant find that!");
+    });
+
     server = app.listen(port, function() {
         ready();
     });
