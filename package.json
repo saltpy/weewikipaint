@@ -17,7 +17,8 @@
         "jake": "0.5.x",
         "jshint": "2.1.x",
         "nodeunit": "0.8.x",
-        "procstreams": "0.3.x"
+        "procstreams": "0.3.x",
+        "karma": "0.8.x"
     },
     "engines": {
         "node": "0.11.x"
