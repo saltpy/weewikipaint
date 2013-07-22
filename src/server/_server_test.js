@@ -23,16 +23,15 @@ exports.test_servesHomePageFromFile = function(test) {
     
     var request = http.get('http://localhost:8080');
     request.on("response", function(response) {
-        var data = false;
+        var actual = "";
         test.equals(200, response.statusCode);
 
         response.on("data", function(chunk) {
-            data = true;
-            test.equals(expected, chunk);
+            actual += chunk;
         });
 
         response.on("end", function() {
-            test.ok(data);
+            test.equals(expected, actual);
             test.done();
         });
     });
