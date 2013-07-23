@@ -24,6 +24,7 @@
         var srcFiles = new jake.FileList();
         srcFiles.include("**/*.js");
         srcFiles.exclude("node_modules");
+        srcFiles.exclude("*.conf.js");
 
         var options = nodeLintOptions();
 
