@@ -19,7 +19,7 @@
         "nodeunit": "0.8.x",
         "procstreams": "0.3.x",
         "mocha": "1.12.x",
-        "chai": "1.7.x",
+        "expect.js": "0.2.x",
         "karma": "0.8.x"
     },
     "engines": {

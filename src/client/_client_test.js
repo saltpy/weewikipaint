@@ -1,13 +1,9 @@
-/*global mocha, chai, describe, it */
+/*global mocha, expect, describe, it */
 
-(function() {
-    "use strict";
+"use strict";
 
-    var assert = chai.assert;
-
-    describe("Nothing", function() {
-        it("should run", function() {
-            assert.equal("foo", "foo");
-        });
+describe("Nothing", function() {
+    it("should run", function() {
+        expect("foo").to.equal("foo");
     });
-}());
+});
