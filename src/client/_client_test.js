@@ -1,4 +1,4 @@
-/*global mocha, expect, describe, it */
+/*global expect, describe, it */
 
 "use strict";
 
