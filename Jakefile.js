@@ -52,8 +52,9 @@
     desc("Run Client Tests");
     task("testClient", function() {
         var config = {browsers: ["Firefox"], singleRun:true};
-        require("karma/lib/runner").run(config, function(exitCode) {
-            if (exitCode) fail("Client tests failed!");
+        require("karma/lib/server").start(config, function(exitCode) {
+            if (exitCode) fail("Karma has exited with " + exitCode);
+            process.exit(exitCode);
         });
     });
 
