@@ -32,8 +32,11 @@
         if (! passed) fail("Linting failed.");
     });
 
-    desc("Run All Tests");
-    task("test", ["node", TEMP_TESTFILE_DIR], function() {
+    desc("Test everything");
+    task("test", ["testServer", "testClient"]);
+
+    desc("Run Server Tests");
+    task("testServer", ["node", TEMP_TESTFILE_DIR], function() {
         var testFiles = new jake.FileList();
         testFiles.include("**/_*_test.js");
         testFiles.exclude("node_modules");
@@ -45,6 +48,14 @@
             complete();
         });
     }, {async: true});
+
+    desc("Run Client Tests");
+    task("testClient", function() {
+        var config = {};
+        require("karma/lib/runner").run(config, function(exitCode) {
+            if (exitCode) fail("Client tests failed!");
+        });
+    });
 
 //    desc("Check node version is compatible");
     task("node", [], function() {
