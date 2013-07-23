@@ -6,6 +6,7 @@
     var NODE_VERSION = "v0.11.";
     var GENERATED_DIR = "generated";
     var TEMP_TESTFILE_DIR = GENERATED_DIR + "/static";
+    var syscmd = require('procstreams');
 
     directory(TEMP_TESTFILE_DIR);
 
@@ -50,22 +51,18 @@
     }, {async: true});
 
     desc("Run Client Tests");
-    task("testClient", function() {
-        var karmaServer = require("karma/lib/server");
-        var karmaConfig = require("karma/lib/config");
-        var conf = karmaConfig.parseConfig("./karma.conf.js",
-            {"browsers": ["Firefox"],
-             "singleRun": true,
-             "port": 8145});
-        karmaServer.start(conf, function(exitCode) {
-            if (exitCode) fail("Karma has exited with " + exitCode);
-            process.exit(exitCode);
+    task("testClient", [], function() {
+        syscmd("node node_modules/karma/bin/karma start --port 8145 --single-run --browsers Firefox").data(function(err, stdout, stderr) {
+            if (stdout) console.log(stdout.toString());
+            if (stderr) console.log(stderr.toString());
+            if (err) fail("Failures in client tests");
+        }).on("exit", function() {
+            complete();
         });
-    });
+    }, {async:true});
 
 //    desc("Check node version is compatible");
     task("node", [], function() {
-        var syscmd = require('procstreams');
         syscmd("node --version").data(function(err, stdout, stderr) {
             if (err) fail("No node.js found.");
             if (stdout.toString().trim().indexOf(NODE_VERSION) !== 0) {
